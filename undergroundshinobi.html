@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNDERGROUND SHINOBI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     AYAR ALANI — kendi bilgilerinizi buraya girin
+     ============================================================ */
+  :root{
+    --bg: #0a0e0b;
+    --surface: #121710;
+    --surface-2: #1a211c;
+    --line: #263127;
+    --ooze: #7cc142;
+    --ooze-dim: #4c7a2a;
+    --rust: #c1552c;
+    --text: #e7ece6;
+    --text-dim: #8b988c;
+    --disabled: #2c352e;
+    --disabled-text: #5a655c;
+    --danger: #d1543a;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(124,193,66,0.07), transparent 45%),
+      radial-gradient(circle at 85% 100%, rgba(193,85,44,0.06), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Mono', monospace;
+    line-height:1.55;
+    min-height:100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .wrap{max-width:620px; margin:0 auto;}
+
+  /* --- Emblem / hero --- */
+  .emblem{
+    width:86px; height:86px; margin:0 auto 22px;
+    border-radius:50%;
+    border:3px solid var(--ooze-dim);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    background: repeating-radial-gradient(circle, var(--surface-2) 0 2px, var(--surface) 2px 4px);
+  }
+  .emblem::before{
+    content:"影";
+    font-size:34px;
+    color:var(--ooze);
+    text-shadow:0 0 14px rgba(124,193,66,0.55);
+  }
+
+  h1.title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:56px;
+    letter-spacing:2px;
+    text-align:center;
+    margin:0 0 6px;
+    color:var(--text);
+    line-height:0.95;
+  }
+  h1.title span{color:var(--ooze);}
+
+  .tagline{
+    text-align:center;
+    color:var(--text-dim);
+    font-size:14px;
+    max-width:440px;
+    margin:0 auto 40px;
+  }
+
+  /* --- Gallery (3 photos go here) --- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:44px;
+  }
+  .gallery .slot{
+    aspect-ratio:1/1;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .gallery .slot img{width:100%; height:100%; object-fit:cover; display:block;}
+  .gallery .slot .placeholder{color:var(--text-dim); font-size:11px; text-align:center; padding:6px;}
+
+  /* --- Task sequence --- */
+  .tasks{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:6px;
+    margin-bottom:22px;
+  }
+  .task{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:18px 16px;
+    border-bottom:1px solid var(--line);
+  }
+  .task:last-child{border-bottom:none;}
+  .task-index{
+    width:30px; height:30px; flex:0 0 30px;
+    border-radius:50%;
+    border:1px solid var(--ooze-dim);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; color:var(--ooze);
+    transition:all .2s ease;
+  }
+  .task.done .task-index{
+    background:var(--ooze); color:#0a0e0b; border-color:var(--ooze);
+  }
+  .task-body{flex:1; min-width:0;}
+  .task-body .label{font-size:14.5px; color:var(--text);}
+  .task-body .sub{font-size:12px; color:var(--text-dim); margin-top:2px;}
+  .task-btn{
+    flex:0 0 auto;
+    background:transparent;
+    border:1px solid var(--ooze-dim);
+    color:var(--ooze);
+    font-family:inherit;
+    font-size:13px;
+    padding:9px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .task-btn:hover{background:rgba(124,193,66,0.1); border-color:var(--ooze);}
+  .task.done .task-btn{
+    border-color:var(--ooze); background:rgba(124,193,66,0.12);
+  }
+
+  /* --- Wallet section --- */
+  .wallet-section{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px 16px;
+  }
+  .wallet-section .label{
+    font-size:13px; color:var(--text-dim); margin-bottom:10px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .lock-note{font-size:11px; color:var(--rust);}
+  .lock-note.unlocked{color:var(--ooze); }
+
+  .wallet-row{display:flex; gap:8px;}
+  input#wallet{
+    flex:1;
+    min-width:0;
+    background:var(--disabled);
+    border:1px solid var(--line);
+    color:var(--disabled-text);
+    font-family:inherit;
+    font-size:13.5px;
+    padding:13px 14px;
+    border-radius:6px;
+    outline:none;
+    transition:all .2s ease;
+  }
+  input#wallet:not(:disabled){
+    background:#0d130f;
+    color:var(--text);
+    border-color:var(--ooze-dim);
+  }
+  input#wallet:not(:disabled):focus{border-color:var(--ooze);}
+
+  #submitBtn{
+    flex:0 0 auto;
+    background:var(--disabled);
+    color:var(--disabled-text);
+    border:none;
+    font-family:inherit;
+    font-size:13.5px;
+    padding:0 20px;
+    border-radius:6px;
+    cursor:not-allowed;
+    transition:all .2s ease;
+  }
+  #submitBtn.active{
+    background:var(--ooze);
+    color:#0a0e0b;
+    cursor:pointer;
+    font-weight:600;
+  }
+  #submitBtn.active:hover{background:#8fd458;}
+
+  .status-msg{
+    margin-top:12px;
+    font-size:12.5px;
+    min-height:16px;
+  }
+  .status-msg.ok{color:var(--ooze);}
+  .status-msg.err{color:var(--danger);}
+
+  @media (max-width:480px){
+    h1.title{font-size:42px;}
+    .wallet-row{flex-direction:column;}
+    #submitBtn{padding:13px; width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="emblem"></div>
+  <h1 class="title">UNDERGROUND<br><span>SHINOBI</span></h1>
+  <p class="tagline">Complete the tasks below to unlock whitelist submission.</p>
+
+  <!-- ============================================================
+       3 FOTOĞRAF BURAYA EKLENECEK
+       Her slot'un içindeki <img> etiketinin "src" değerini kendi
+       görsel dosyanızın yolu ile değiştirin, ör: src="images/1.png"
+       ============================================================ -->
+  <div class="gallery">
+    <div class="slot">
+      <!-- <img src="images/1.png" alt="Underground Shinobi #1"> -->
+      <div class="placeholder">Görsel 1<br>buraya</div>
+    </div>
+    <div class="slot">
+      <!-- <img src="images/2.png" alt="Underground Shinobi #2"> -->
+      <div class="placeholder">Görsel 2<br>buraya</div>
+    </div>
+    <div class="slot">
+      <!-- <img src="images/3.png" alt="Underground Shinobi #3"> -->
+      <div class="placeholder">Görsel 3<br>buraya</div>
+    </div>
+  </div>
+
+  <div class="tasks">
+    <div class="task" id="task-follow">
+      <div class="task-index">1</div>
+      <div class="task-body">
+        <div class="label">Follow us on X</div>
+        <div class="sub">Follow the official Underground Shinobi account</div>
+      </div>
+      <button class="task-btn" id="followBtn">Follow</button>
+    </div>
+    <div class="task" id="task-like">
+      <div class="task-index">2</div>
+      <div class="task-body">
+        <div class="label">Like &amp; Retweet</div>
+        <div class="sub">Like and RT the pinned announcement post</div>
+      </div>
+      <button class="task-btn" id="likeBtn">Like &amp; RT</button>
+    </div>
+  </div>
+
+  <div class="wallet-section">
+    <div class="label">
+      <span>EVM Wallet Address</span>
+      <span class="lock-note" id="lockNote">Complete both tasks to unlock</span>
+    </div>
+    <div class="wallet-row">
+      <input type="text" id="wallet" placeholder="0x..." disabled>
+      <button id="submitBtn" disabled>Submit</button>
+    </div>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+</div>
+
+<!-- Google Form'a arka planda, sayfa yenilenmeden göndermek için gizli iframe -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+<form id="gform" method="POST" target="hidden_iframe" style="display:none;"></form>
+
+<script>
+/* ================================================================
+   AYAR ALANI — aşağıdaki değerleri kendi bilgilerinizle değiştirin
+   ================================================================ */
+const CONFIG = {
+  // Twitter/X profil linkiniz
+  twitterProfileUrl: "https://twitter.com/YOUR_HANDLE",
+
+  // Like & RT istediğiniz tweetin linki
+  tweetUrl: "https://twitter.com/YOUR_HANDLE/status/YOUR_TWEET_ID",
+
+  // Google Form'un "formResponse" linki.
+  // Nasıl bulunur: Formu açın > sağ üst "..." > "Önceden doldurulmuş link al"
+  // ile oluşturduğunuz linkteki "viewform" kısmını "formResponse" ile
+  // değiştirip aşağıya yapıştırın. (…/forms/d/e/FORM_ID/formResponse)
+  googleFormActionUrl: "https://docs.google.com/forms/d/e/FORM_ID/formResponse",
+
+  // Google Form'daki "Cüzdan Adresi" sorusunun entry ID'si.
+  // Nasıl bulunur: Formu önizleyin, DevTools > Network açık şekilde bir
+  // deneme gönderimi yapın, "entry.XXXXXXXXX" adlı alanı bulun.
+  walletEntryIdField: "entry.XXXXXXXXX"
+};
+
+const state = { follow: false, like: false };
+
+function markDone(taskEl, btn, doneLabel){
+  taskEl.classList.add('done');
+  btn.textContent = doneLabel;
+  checkUnlock();
+}
+
+document.getElementById('followBtn').addEventListener('click', function(){
+  window.open(CONFIG.twitterProfileUrl, '_blank', 'noopener');
+  if(!state.follow){
+    state.follow = true;
+    markDone(document.getElementById('task-follow'), this, 'Followed ✓');
+  }
+});
+
+document.getElementById('likeBtn').addEventListener('click', function(){
+  window.open(CONFIG.tweetUrl, '_blank', 'noopener');
+  if(!state.like){
+    state.like = true;
+    markDone(document.getElementById('task-like'), this, 'Done ✓');
+  }
+});
+
+function checkUnlock(){
+  if(state.follow && state.like){
+    const wallet = document.getElementById('wallet');
+    const submitBtn = document.getElementById('submitBtn');
+    wallet.disabled = false;
+    submitBtn.disabled = false;
+    submitBtn.classList.add('active');
+    document.getElementById('lockNote').textContent = 'Unlocked';
+    document.getElementById('lockNote').classList.add('unlocked');
+    wallet.focus();
+  }
+}
+
+function isValidEvmAddress(addr){
+  return /^0x[a-fA-F0-9]{40}$/.test(addr.trim());
+}
+
+document.getElementById('submitBtn').addEventListener('click', function(){
+  if(this.disabled) return;
+  const walletInput = document.getElementById('wallet');
+  const status = document.getElementById('statusMsg');
+  const address = walletInput.value.trim();
+
+  if(!isValidEvmAddress(address)){
+    status.textContent = 'Please enter a valid EVM wallet address (0x...).';
+    status.className = 'status-msg err';
+    return;
+  }
+
+  // Gizli form üzerinden Google Form'a gönder
+  const gform = document.getElementById('gform');
+  gform.innerHTML = '';
+  gform.action = CONFIG.googleFormActionUrl;
+
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = CONFIG.walletEntryIdField;
+  input.value = address;
+  gform.appendChild(input);
+
+  gform.submit();
+
+  this.disabled = true;
+  this.classList.remove('active');
+  this.textContent = 'Submitted';
+  walletInput.disabled = true;
+  status.textContent = 'Submitted successfully. Good luck, shinobi.';
+  status.className = 'status-msg ok';
+});
+</script>
+</body>
+</html>
