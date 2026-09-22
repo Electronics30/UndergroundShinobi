@@ -8,12 +8,36 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     AYAR ALANI — kendi bilgilerinizi buraya girin
-     ============================================================ */
+  /* Arka Plan Videosu Stilleri */
+  #bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+
+  /* Videonun üzerine hafif karartma */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 11, 0.65); 
+    z-index: -1;
+    pointer-events: none;
+  }
+
   :root{
     --bg: #0a0e0b;
-    --surface: #121710;
+    --surface: rgba(18, 23, 16, 0.85);
     --surface-2: #1a211c;
     --line: #263127;
     --ooze: #7cc142;
@@ -27,20 +51,49 @@
   }
 
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
+  html,body{margin:0;padding:0; scroll-behavior: smooth;}
   body{
-    background:
-      radial-gradient(circle at 15% 0%, rgba(124,193,66,0.07), transparent 45%),
-      radial-gradient(circle at 85% 100%, rgba(193,85,44,0.06), transparent 40%),
-      var(--bg);
+    background: transparent;
     color:var(--text);
     font-family:'IBM Plex Mono', monospace;
     line-height:1.55;
     min-height:100vh;
-    padding: 48px 20px 80px;
+    padding: 30px 20px 80px;
   }
 
-  .wrap{max-width:620px; margin:0 auto;}
+  .wrap{max-width:620px; margin:0 auto; position: relative; z-index: 1;}
+
+  /* --- Top Navigation Boxes --- */
+  .top-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 35px;
+  }
+  .nav-box {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 4px;
+    text-align: center;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-box:hover {
+    border-color: var(--ooze);
+    color: var(--ooze);
+    background: rgba(124, 193, 66, 0.08);
+    transform: translateY(-2px);
+  }
 
   /* --- Emblem / hero --- */
   .emblem{
@@ -77,12 +130,12 @@
     margin:0 auto 40px;
   }
 
-  /* --- Gallery (3 photos go here) --- */
+  /* --- Gallery (Sneak Peek) --- */
   .gallery{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
-    margin-bottom:44px;
+    margin-bottom:24px;
   }
   .gallery .slot{
     aspect-ratio:1/1;
@@ -93,7 +146,77 @@
     display:flex; align-items:center; justify-content:center;
   }
   .gallery .slot img{width:100%; height:100%; object-fit:cover; display:block;}
-  .gallery .slot .placeholder{color:var(--text-dim); font-size:11px; text-align:center; padding:6px;}
+
+  /* --- Infinite Logo Showcase --- */
+  .logo-showcase {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 0;
+    margin-bottom: 40px;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(4px);
+  }
+  
+  .logo-showcase::before,
+  .logo-showcase::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .logo-showcase::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(18, 23, 16, 0.9), transparent);
+  }
+  .logo-showcase::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(18, 23, 16, 0.9), transparent);
+  }
+
+  .logo-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    animation: scrollLogos 35s linear infinite;
+  }
+
+  .logo-track:hover {
+    animation-play-state: paused;
+  }
+
+  .logo-box {
+    width: 65px;
+    height: 65px;
+    flex: 0 0 65px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 4px;
+    transition: border-color 0.2s ease;
+  }
+  .logo-box:hover {
+    border-color: var(--ooze-dim);
+  }
+  .logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  @keyframes scrollLogos {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
   /* --- Task sequence --- */
   .tasks{
@@ -102,6 +225,7 @@
     border-radius:10px;
     padding:6px;
     margin-bottom:22px;
+    backdrop-filter: blur(4px);
   }
   .task{
     display:flex;
@@ -143,53 +267,65 @@
     border-color:var(--ooze); background:rgba(124,193,66,0.12);
   }
 
-  /* --- Wallet section --- */
+  /* --- Form / Registration Section --- */
   .wallet-section{
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:10px;
     padding:20px 16px;
+    backdrop-filter: blur(4px);
+    scroll-margin-top: 20px;
   }
   .wallet-section .label{
-    font-size:13px; color:var(--text-dim); margin-bottom:10px;
+    font-size:13px; color:var(--text-dim); margin-bottom:12px;
     display:flex; align-items:center; justify-content:space-between;
   }
   .lock-note{font-size:11px; color:var(--rust);}
   .lock-note.unlocked{color:var(--ooze); }
 
-  .wallet-row{display:flex; gap:8px;}
-  input#wallet{
-    flex:1;
-    min-width:0;
-    background:var(--disabled);
-    border:1px solid var(--line);
-    color:var(--disabled-text);
-    font-family:inherit;
-    font-size:13.5px;
-    padding:13px 14px;
-    border-radius:6px;
-    outline:none;
-    transition:all .2s ease;
+  .form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-  input#wallet:not(:disabled){
-    background:#0d130f;
-    color:var(--text);
-    border-color:var(--ooze-dim);
+
+  .input-field {
+    width: 100%;
+    background: var(--disabled);
+    border: 1px solid var(--line);
+    color: var(--disabled-text);
+    font-family: inherit;
+    font-size: 13.5px;
+    padding: 13px 14px;
+    border-radius: 6px;
+    outline: none;
+    transition: all .2s ease;
   }
-  input#wallet:not(:disabled):focus{border-color:var(--ooze);}
+
+  .input-field:not(:disabled) {
+    background: #0d130f;
+    color: var(--text);
+    border-color: var(--ooze-dim);
+  }
+
+  .input-field:not(:disabled):focus {
+    border-color: var(--ooze);
+  }
 
   #submitBtn{
-    flex:0 0 auto;
+    width: 100%;
     background:var(--disabled);
     color:var(--disabled-text);
     border:none;
     font-family:inherit;
-    font-size:13.5px;
-    padding:0 20px;
+    font-size:14px;
+    padding:13px;
     border-radius:6px;
     cursor:not-allowed;
     transition:all .2s ease;
+    margin-top: 4px;
   }
+
   #submitBtn.active{
     background:var(--ooze);
     color:#0a0e0b;
@@ -197,6 +333,13 @@
     font-weight:600;
   }
   #submitBtn.active:hover{background:#8fd458;}
+  
+  #submitBtn.submitted {
+    background: #7cc142 !important;
+    color: #0a0e0b !important;
+    font-weight: 600;
+    cursor: default;
+  }
 
   .status-msg{
     margin-top:12px;
@@ -206,37 +349,109 @@
   .status-msg.ok{color:var(--ooze);}
   .status-msg.err{color:var(--danger);}
 
+  /* Diğer Bölümler */
+  .section-placeholder {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 30px 20px;
+    margin-top: 40px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    scroll-margin-top: 20px;
+  }
+  .section-placeholder h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--ooze);
+    margin: 0 0 10px 0;
+  }
+
   @media (max-width:480px){
     h1.title{font-size:42px;}
-    .wallet-row{flex-direction:column;}
-    #submitBtn{padding:13px; width:100%;}
+    .top-nav {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 </style>
 </head>
 <body>
+
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="background.mp4" type="video/mp4">
+</video>
+
 <div class="wrap">
+
+  <nav class="top-nav">
+    <a href="#wl-section" class="nav-box">WL Registration</a>
+    <a href="#sneak-peek" class="nav-box">Sneak Peek</a>
+    <a href="#roadmap" class="nav-box">Roadmap</a>
+    <a href="#about-us" class="nav-box">About Us</a>
+  </nav>
 
   <div class="emblem"></div>
   <h1 class="title">UNDERGROUND<br><span>SHINOBI</span></h1>
   <p class="tagline">Complete the tasks below to unlock whitelist submission.</p>
 
-  <!-- ============================================================
-       3 FOTOĞRAF BURAYA EKLENECEK
-       Her slot'un içindeki <img> etiketinin "src" değerini kendi
-       görsel dosyanızın yolu ile değiştirin, ör: src="images/1.png"
-       ============================================================ -->
-  <div class="gallery">
-    <div class="slot">
-      <!-- <img src="images/1.png" alt="Underground Shinobi #1"> -->
-      <div class="placeholder">Görsel 1<br>buraya</div>
-    </div>
-    <div class="slot">
-      <!-- <img src="images/2.png" alt="Underground Shinobi #2"> -->
-      <div class="placeholder">Görsel 2<br>buraya</div>
-    </div>
-    <div class="slot">
-      <!-- <img src="images/3.png" alt="Underground Shinobi #3"> -->
-      <div class="placeholder">Görsel 3<br>buraya</div>
+  <div id="sneak-peek" class="gallery">
+    <div class="slot"><img src="images/royal-warrior-turtle.png" alt="Royal Warrior Turtle"></div>
+    <div class="slot"><img src="images/storm-turtle.png" alt="Storm Turtle"></div>
+    <div class="slot"><img src="images/void-ninja-turtle.png" alt="Void Ninja Turtle"></div>
+    <div class="slot"><img src="images/phoenix-winged-turtle.png" alt="Phoenix Winged Turtle"></div>
+    <div class="slot"><img src="images/seraphim-guardian.png" alt="Seraphim Guardian"></div>
+    <div class="slot"><img src="images/forest-turtle.png" alt="Forest Turtle"></div>
+  </div>
+
+  <div id="showcase" class="logo-showcase">
+    <div class="logo-track">
+      <div class="logo-box"><img src="NFTexamples/5.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/8.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/10.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/13.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/14.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/15.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/16.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/20.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/25.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/29.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/40.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/45.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/49.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/52.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/55.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/56.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/58.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/61.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/63.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/78.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/82.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/84.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/96.png" alt="Shinobi Logo"></div>
+
+      <div class="logo-box"><img src="NFTexamples/5.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/8.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/10.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/13.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/14.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/15.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/16.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/20.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/25.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/29.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/40.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/45.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/49.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/52.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/55.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/56.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/58.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/61.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/63.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/78.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/82.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/84.png" alt="Shinobi Logo"></div>
+      <div class="logo-box"><img src="NFTexamples/96.png" alt="Shinobi Logo"></div>
     </div>
   </div>
 
@@ -259,45 +474,46 @@
     </div>
   </div>
 
-  <div class="wallet-section">
+  <div id="wl-section" class="wallet-section">
     <div class="label">
-      <span>EVM Wallet Address</span>
+      <span>Whitelist Application</span>
       <span class="lock-note" id="lockNote">Complete both tasks to unlock</span>
     </div>
-    <div class="wallet-row">
-      <input type="text" id="wallet" placeholder="0x..." disabled>
-      <button id="submitBtn" disabled>Submit</button>
+    
+    <div class="form-inputs">
+      <input type="text" id="twitterHandle" class="input-field" placeholder="X (Twitter) Handle (e.g. @username)" disabled>
+      <input type="text" id="wallet" class="input-field" placeholder="EVM Wallet Address (0x...)" disabled>
+      <button id="submitBtn" disabled>Submit Application</button>
     </div>
+    
     <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  <div id="roadmap" class="section-placeholder">
+    <h2>ROADMAP</h2>
+    <p style="color: var(--text-dim); font-size: 13px;">Coming soon...</p>
+  </div>
+
+  <div id="about-us" class="section-placeholder">
+    <h2>ABOUT US</h2>
+    <p style="color: var(--text-dim); font-size: 13px;">Underground Shinobi NFT Project.</p>
   </div>
 
 </div>
 
-<!-- Google Form'a arka planda, sayfa yenilenmeden göndermek için gizli iframe -->
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 <form id="gform" method="POST" target="hidden_iframe" style="display:none;"></form>
 
 <script>
-/* ================================================================
-   AYAR ALANI — aşağıdaki değerleri kendi bilgilerinizle değiştirin
-   ================================================================ */
+// ============================================================
+// YAPILANDIRMA BİLGİLERİ (HAZIRLANTI)
+// ============================================================
 const CONFIG = {
-  // Twitter/X profil linkiniz
-  twitterProfileUrl: "https://twitter.com/YOUR_HANDLE",
-
-  // Like & RT istediğiniz tweetin linki
-  tweetUrl: "https://twitter.com/YOUR_HANDLE/status/YOUR_TWEET_ID",
-
-  // Google Form'un "formResponse" linki.
-  // Nasıl bulunur: Formu açın > sağ üst "..." > "Önceden doldurulmuş link al"
-  // ile oluşturduğunuz linkteki "viewform" kısmını "formResponse" ile
-  // değiştirip aşağıya yapıştırın. (…/forms/d/e/FORM_ID/formResponse)
-  googleFormActionUrl: "https://docs.google.com/forms/d/e/FORM_ID/formResponse",
-
-  // Google Form'daki "Cüzdan Adresi" sorusunun entry ID'si.
-  // Nasıl bulunur: Formu önizleyin, DevTools > Network açık şekilde bir
-  // deneme gönderimi yapın, "entry.XXXXXXXXX" adlı alanı bulun.
-  walletEntryIdField: "entry.XXXXXXXXX"
+  twitterProfileUrl: "https://twitter.com/YOUR_HANDLE", // Kendi X profil linkinizi yazın
+  tweetUrl: "https://twitter.com/YOUR_HANDLE/status/YOUR_TWEET_ID", // Kendi Tweet linkinizi yazın
+  googleFormActionUrl: "https://docs.google.com/forms/d/e/1FAIpQLScxgv5i7RWly6_2JYjopL6UtkRR4kJ9togGbOa3yjPOnanCjw/formResponse",
+  twitterEntryIdField: "entry.423406689",
+  walletEntryIdField: "entry.216979400"
 };
 
 const state = { follow: false, like: false };
@@ -326,14 +542,18 @@ document.getElementById('likeBtn').addEventListener('click', function(){
 
 function checkUnlock(){
   if(state.follow && state.like){
-    const wallet = document.getElementById('wallet');
+    const twitterInput = document.getElementById('twitterHandle');
+    const walletInput = document.getElementById('wallet');
     const submitBtn = document.getElementById('submitBtn');
-    wallet.disabled = false;
+    
+    twitterInput.disabled = false;
+    walletInput.disabled = false;
     submitBtn.disabled = false;
     submitBtn.classList.add('active');
+    
     document.getElementById('lockNote').textContent = 'Unlocked';
     document.getElementById('lockNote').classList.add('unlocked');
-    wallet.focus();
+    twitterInput.focus();
   }
 }
 
@@ -343,9 +563,19 @@ function isValidEvmAddress(addr){
 
 document.getElementById('submitBtn').addEventListener('click', function(){
   if(this.disabled) return;
+  
+  const twitterInput = document.getElementById('twitterHandle');
   const walletInput = document.getElementById('wallet');
   const status = document.getElementById('statusMsg');
+  
+  const handle = twitterInput.value.trim();
   const address = walletInput.value.trim();
+
+  if(!handle || handle.length < 2){
+    status.textContent = 'Please enter a valid X (Twitter) handle.';
+    status.className = 'status-msg err';
+    return;
+  }
 
   if(!isValidEvmAddress(address)){
     status.textContent = 'Please enter a valid EVM wallet address (0x...).';
@@ -353,22 +583,33 @@ document.getElementById('submitBtn').addEventListener('click', function(){
     return;
   }
 
-  // Gizli form üzerinden Google Form'a gönder
+  // Gizli Form Üzerinden Google Form'a Gönder
   const gform = document.getElementById('gform');
   gform.innerHTML = '';
   gform.action = CONFIG.googleFormActionUrl;
 
-  const input = document.createElement('input');
-  input.type = 'hidden';
-  input.name = CONFIG.walletEntryIdField;
-  input.value = address;
-  gform.appendChild(input);
+  // Twitter Handle Alanı
+  const inputTwitter = document.createElement('input');
+  inputTwitter.type = 'hidden';
+  inputTwitter.name = CONFIG.twitterEntryIdField;
+  inputTwitter.value = handle;
+  gform.appendChild(inputTwitter);
+
+  // Wallet Address Alanı
+  const inputWallet = document.createElement('input');
+  inputWallet.type = 'hidden';
+  inputWallet.name = CONFIG.walletEntryIdField;
+  inputWallet.value = address;
+  gform.appendChild(inputWallet);
 
   gform.submit();
 
+  // Başarı Görseli Ve Mesajı
   this.disabled = true;
   this.classList.remove('active');
-  this.textContent = 'Submitted';
+  this.classList.add('submitted');
+  this.textContent = 'Submitted ✓';
+  twitterInput.disabled = true;
   walletInput.disabled = true;
   status.textContent = 'Submitted successfully. Good luck, shinobi.';
   status.className = 'status-msg ok';
