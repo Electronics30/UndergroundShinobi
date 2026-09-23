@@ -61,6 +61,37 @@
     padding: 30px 20px 80px;
   }
 
+  /* --- Sol Üst Kötüdeki Sabit X (Twitter) İkonu --- */
+  .social-header-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 99;
+    width: 42px;
+    height: 42px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+  }
+  .social-header-link:hover {
+    border-color: var(--ooze);
+    color: var(--ooze);
+    background: rgba(124, 193, 66, 0.1);
+    transform: translateY(-2px);
+  }
+  .social-header-link svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
   .wrap{max-width:620px; margin:0 auto; position: relative; z-index: 1;}
 
   /* --- Top Navigation Grid Structure --- */
@@ -107,7 +138,6 @@
     letter-spacing: 0px;
   }
 
-  /* 2 Kat Büyüklüğündeki Büyük Oyun Kutucuğu */
   .nav-box-large {
     grid-row: span 2;
     min-height: 114px;
@@ -163,23 +193,49 @@
     margin:0 auto 40px;
   }
 
-  /* --- Gallery (Sneak Peek) --- */
-  .gallery{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-bottom:24px;
-    scroll-margin-top: 30px;
+  /* --- 1/1 NFTS Section --- */
+  .section-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--ooze);
+    text-align: center;
+    margin: 40px 0 20px;
+    letter-spacing: 1.5px;
   }
-  .gallery .slot{
-    aspect-ratio:1/1;
-    border:1px dashed var(--line);
-    border-radius:6px;
-    overflow:hidden;
-    background:var(--surface);
-    display:flex; align-items:center; justify-content:center;
+  .gallery-1of1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
   }
-  .gallery .slot img{width:100%; height:100%; object-fit:cover; display:block;}
+  .nft-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+  .nft-card:hover {
+    border-color: var(--ooze);
+    transform: translateY(-2px);
+  }
+  .nft-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--line);
+  }
+  .nft-info {
+    padding: 8px 4px;
+  }
+  .nft-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+  }
 
   /* --- Infinite Logo Showcase --- */
   .logo-showcase {
@@ -531,6 +587,12 @@
   }
 
   @media (max-width:580px){
+    .social-header-link {
+      top: 12px;
+      left: 12px;
+      width: 36px;
+      height: 36px;
+    }
     h1.title{font-size:42px;}
     .top-nav {
       grid-template-columns: repeat(2, 1fr);
@@ -541,6 +603,9 @@
     }
     .logo-showcase {
       width: 90vw;
+    }
+    .gallery-1of1 {
+      grid-template-columns: repeat(2, 1fr);
     }
     .tree-node {
       width: 100%;
@@ -563,6 +628,12 @@
 </head>
 <body>
 
+<a href="https://x.com/UndergroundShin" target="_blank" rel="noopener" class="social-header-link" title="Follow us on X">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+  </svg>
+</a>
+
 <video autoplay muted loop playsinline id="bg-video">
   <source src="background.mp4" type="video/mp4">
 </video>
@@ -573,8 +644,8 @@
     <a href="#wl-section" class="nav-box">
       <span>WL Registration</span>
     </a>
-    <a href="#sneak-peek" class="nav-box">
-      <span>Sneak Peek</span>
+    <a href="#gallery-section" class="nav-box">
+      <span>1/1 NFTS</span>
     </a>
     <a href="javascript:void(0)" class="nav-box-large nav-box no-link">
       <span class="main-title">PLAY &amp; EARN</span>
@@ -600,13 +671,34 @@
   <h1 class="title">UNDERGROUND<br><span>SHINOBI</span></h1>
   <p class="tagline">Complete the tasks below to unlock whitelist submission.</p>
 
-  <div id="sneak-peek" class="gallery">
-    <div class="slot"><img src="images/royal-warrior-turtle.png" alt="Royal Warrior Turtle"></div>
-    <div class="slot"><img src="images/storm-turtle.png" alt="Storm Turtle"></div>
-    <div class="slot"><img src="images/void-ninja-turtle.png" alt="Void Ninja Turtle"></div>
-    <div class="slot"><img src="images/phoenix-winged-turtle.png" alt="Phoenix Winged Turtle"></div>
-    <div class="slot"><img src="images/seraphim-guardian.png" alt="Seraphim Guardian"></div>
-    <div class="slot"><img src="images/forest-turtle.png" alt="Forest Turtle"></div>
+  <div id="gallery-section">
+    <div class="section-header">1/1 NFTS</div>
+    <div class="gallery-1of1">
+      <div class="nft-card">
+        <img src="1of1/royal.png" class="nft-image" alt="Royal Warrior Turtle">
+        <div class="nft-info"><div class="nft-name">Royal Warrior Turtle</div></div>
+      </div>
+      <div class="nft-card">
+        <img src="1of1/storm.png" class="nft-image" alt="Storm Turtle">
+        <div class="nft-info"><div class="nft-name">Storm Turtle</div></div>
+      </div>
+      <div class="nft-card">
+        <img src="1of1/void.png" class="nft-image" alt="Void Ninja Turtle">
+        <div class="nft-info"><div class="nft-name">Void Ninja Turtle</div></div>
+      </div>
+      <div class="nft-card">
+        <img src="1of1/phoenix.png" class="nft-image" alt="Phoenix Winged Turtle">
+        <div class="nft-info"><div class="nft-name">Phoenix Winged Turtle</div></div>
+      </div>
+      <div class="nft-card">
+        <img src="1of1/seraphim.png" class="nft-image" alt="Seraphim Guardian">
+        <div class="nft-info"><div class="nft-name">Seraphim Guardian</div></div>
+      </div>
+      <div class="nft-card">
+        <img src="1of1/forest.png" class="nft-image" alt="Forest Turtle">
+        <div class="nft-info"><div class="nft-name">Forest Turtle</div></div>
+      </div>
+    </div>
   </div>
 
   <div id="showcase" class="logo-showcase">
@@ -774,9 +866,12 @@
 <form id="gform" method="POST" target="hidden_iframe" style="display:none;"></form>
 
 <script>
+// ============================================================
+// LİNK VE YAPILANDIRMA BİLGİLERİ
+// ============================================================
 const CONFIG = {
-  twitterProfileUrl: "https://twitter.com/YOUR_HANDLE", 
-  tweetUrl: "https://twitter.com/YOUR_HANDLE/status/YOUR_TWEET_ID", 
+  twitterProfileUrl: "https://x.com/UndergroundShin", 
+  tweetUrl: "https://x.com/UndergroundShin/status/2102586084882354289", 
   googleFormActionUrl: "https://docs.google.com/forms/d/e/1FAIpQLScxgv5i7RWly6_2JYjopL6UtkRR4kJ9togGbOa3yjPOnanCjw/formResponse",
   twitterEntryIdField: "entry.423406689",
   walletEntryIdField: "entry.216979400"
@@ -790,6 +885,7 @@ function markDone(taskEl, btn, doneLabel){
   checkUnlock();
 }
 
+// 1. Görev Butonu (Follow) - Yeni sekmede X profilini açar
 document.getElementById('followBtn').addEventListener('click', function(){
   window.open(CONFIG.twitterProfileUrl, '_blank', 'noopener');
   if(!state.follow){
@@ -798,6 +894,7 @@ document.getElementById('followBtn').addEventListener('click', function(){
   }
 });
 
+// 2. Görev Butonu (Like & RT) - Yeni sekmede Tweet linkini açar
 document.getElementById('likeBtn').addEventListener('click', function(){
   window.open(CONFIG.tweetUrl, '_blank', 'noopener');
   if(!state.like){
@@ -824,4 +921,58 @@ function checkUnlock(){
 }
 
 function isValidEvmAddress(addr){
-  return /^0x[a-fA-F0-9]{40}$/.test(addr
+  return /^0x[a-fA-F0-9]{40}$/.test(addr.trim());
+}
+
+document.getElementById('submitBtn').addEventListener('click', function(){
+  if(this.disabled) return;
+  
+  const twitterInput = document.getElementById('twitterHandle');
+  const walletInput = document.getElementById('wallet');
+  const status = document.getElementById('statusMsg');
+  
+  const handle = twitterInput.value.trim();
+  const address = walletInput.value.trim();
+
+  if(!handle || handle.length < 2){
+    status.textContent = 'Please enter a valid X (Twitter) handle.';
+    status.className = 'status-msg err';
+    return;
+  }
+
+  if(!isValidEvmAddress(address)){
+    status.textContent = 'Please enter a valid EVM wallet address (0x...).';
+    status.className = 'status-msg err';
+    return;
+  }
+
+  const gform = document.getElementById('gform');
+  gform.innerHTML = '';
+  gform.action = CONFIG.googleFormActionUrl;
+
+  const inputTwitter = document.createElement('input');
+  inputTwitter.type = 'hidden';
+  inputTwitter.name = CONFIG.twitterEntryIdField;
+  inputTwitter.value = handle;
+  gform.appendChild(inputTwitter);
+
+  const inputWallet = document.createElement('input');
+  inputWallet.type = 'hidden';
+  inputWallet.name = CONFIG.walletEntryIdField;
+  inputWallet.value = address;
+  gform.appendChild(inputWallet);
+
+  gform.submit();
+
+  this.disabled = true;
+  this.classList.remove('active');
+  this.classList.add('submitted');
+  this.textContent = 'Submitted ✓';
+  twitterInput.disabled = true;
+  walletInput.disabled = true;
+  status.textContent = 'Submitted successfully. Good luck, shinobi.';
+  status.className = 'status-msg ok';
+});
+</script>
+</body>
+</html>
