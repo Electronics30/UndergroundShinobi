@@ -66,8 +66,8 @@
   /* --- Top Navigation Boxes --- */
   .top-nav {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     margin-bottom: 35px;
   }
   .nav-box {
@@ -85,14 +85,23 @@
     transition: all 0.2s ease;
     backdrop-filter: blur(4px);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 52px;
   }
   .nav-box:hover {
     border-color: var(--ooze);
     color: var(--ooze);
     background: rgba(124, 193, 66, 0.08);
     transform: translateY(-2px);
+  }
+  .nav-box .sub-label {
+    font-size: 8.5px;
+    color: var(--rust);
+    text-transform: lowercase;
+    margin-top: 3px;
+    letter-spacing: 0px;
   }
 
   /* --- Emblem / hero --- */
@@ -149,13 +158,17 @@
 
   /* --- Infinite Logo Showcase --- */
   .logo-showcase {
+    width: 75vw;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 8px;
-    padding: 12px 0;
-    margin-bottom: 40px;
+    padding: 16px 0;
     overflow: hidden;
-    position: relative;
     backdrop-filter: blur(4px);
   }
   
@@ -164,23 +177,23 @@
     content: "";
     position: absolute;
     top: 0;
-    width: 30px;
+    width: 40px;
     height: 100%;
     z-index: 2;
     pointer-events: none;
   }
   .logo-showcase::before {
     left: 0;
-    background: linear-gradient(to right, rgba(18, 23, 16, 0.9), transparent);
+    background: linear-gradient(to right, rgba(18, 23, 16, 0.95), transparent);
   }
   .logo-showcase::after {
     right: 0;
-    background: linear-gradient(to left, rgba(18, 23, 16, 0.9), transparent);
+    background: linear-gradient(to left, rgba(18, 23, 16, 0.95), transparent);
   }
 
   .logo-track {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     width: max-content;
     animation: scrollLogos 35s linear infinite;
   }
@@ -190,17 +203,17 @@
   }
 
   .logo-box {
-    width: 65px;
-    height: 65px;
-    flex: 0 0 65px;
+    width: 130px;
+    height: 130px;
+    flex: 0 0 130px;
     background: var(--surface-2);
     border: 1px solid var(--line);
-    border-radius: 6px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 4px;
+    padding: 6px;
     transition: border-color 0.2s ease;
   }
   .logo-box:hover {
@@ -210,7 +223,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 
   @keyframes scrollLogos {
@@ -349,28 +362,172 @@
   .status-msg.ok{color:var(--ooze);}
   .status-msg.err{color:var(--danger);}
 
-  /* Diğer Bölümler */
+  /* Section Base */
   .section-placeholder {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 10px;
-    padding: 30px 20px;
+    padding: 30px 24px;
     margin-top: 40px;
-    text-align: center;
     backdrop-filter: blur(4px);
     scroll-margin-top: 20px;
   }
   .section-placeholder h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
+    font-size: 36px;
     color: var(--ooze);
-    margin: 0 0 10px 0;
+    margin: 0 0 16px 0;
+    text-align: center;
+    letter-spacing: 1px;
   }
 
-  @media (max-width:480px){
+  /* About Us Metin Yapısı */
+  .about-text {
+    color: var(--text);
+    font-size: 13.5px;
+    line-height: 1.7;
+    text-align: left;
+  }
+  .about-text p {
+    margin-bottom: 16px;
+  }
+  .about-text p:last-child {
+    margin-bottom: 0;
+  }
+  .about-highlight {
+    color: var(--ooze);
+    font-weight: 600;
+  }
+
+  /* --- Tree/Pole Style Roadmap --- */
+  .roadmap-tree {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 20px;
+  }
+  .roadmap-tree::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: linear-gradient(180deg, var(--ooze) 0%, var(--ooze-dim) 100%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px rgba(124, 193, 66, 0.4);
+    border-radius: 2px;
+  }
+
+  .tree-node {
+    position: relative;
+    width: 50%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+  }
+  .tree-node:last-child {
+    margin-bottom: 0;
+  }
+
+  .tree-node.left {
+    left: 0;
+    text-align: right;
+  }
+  .tree-node.right {
+    left: 50%;
+    text-align: left;
+  }
+
+  .tree-node.left::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: 0;
+    width: 20px;
+    height: 2px;
+    background: var(--ooze);
+  }
+  .tree-node.right::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background: var(--ooze);
+  }
+
+  .node-box {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: inline-block;
+    max-width: 100%;
+    transition: border-color 0.2s ease;
+  }
+  .node-box:hover {
+    border-color: var(--ooze-dim);
+  }
+  .node-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .tree-node.left .node-header {
+    justify-content: flex-end;
+  }
+  .node-phase {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--ooze);
+    letter-spacing: 1px;
+  }
+  .node-date {
+    font-size: 11px;
+    color: var(--rust);
+    background: rgba(193, 85, 44, 0.15);
+    border: 1px solid var(--rust);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .node-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 2px 0 6px 0;
+  }
+  .node-desc {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  @media (max-width:580px){
     h1.title{font-size:42px;}
     .top-nav {
       grid-template-columns: repeat(2, 1fr);
+    }
+    .logo-showcase {
+      width: 90vw;
+    }
+    .tree-node {
+      width: 100%;
+      left: 0 !important;
+      text-align: left !important;
+      padding-left: 30px;
+    }
+    .tree-node.left .node-header {
+      justify-content: flex-start;
+    }
+    .roadmap-tree::before {
+      left: 10px;
+    }
+    .tree-node.left::after, .tree-node.right::after {
+      left: 10px;
+      width: 15px;
     }
   }
 </style>
@@ -384,10 +541,26 @@
 <div class="wrap">
 
   <nav class="top-nav">
-    <a href="#wl-section" class="nav-box">WL Registration</a>
-    <a href="#sneak-peek" class="nav-box">Sneak Peek</a>
-    <a href="#roadmap" class="nav-box">Roadmap</a>
-    <a href="#about-us" class="nav-box">About Us</a>
+    <a href="#wl-section" class="nav-box">
+      <span>WL Registration</span>
+    </a>
+    <a href="#sneak-peek" class="nav-box">
+      <span>Sneak Peek</span>
+    </a>
+    <a href="#roadmap" class="nav-box">
+      <span>Roadmap</span>
+    </a>
+    <a href="#about-us" class="nav-box">
+      <span>About Us</span>
+    </a>
+    <a href="#wl-section" class="nav-box">
+      <span>NFT Stake &amp; Burn</span>
+      <span class="sub-label">coming soon...</span>
+    </a>
+    <a href="#wl-section" class="nav-box">
+      <span>$SHINOBI</span>
+      <span class="sub-label">coming soon...</span>
+    </a>
   </nav>
 
   <div class="emblem"></div>
@@ -491,12 +664,75 @@
 
   <div id="roadmap" class="section-placeholder">
     <h2>ROADMAP</h2>
-    <p style="color: var(--text-dim); font-size: 13px;">Coming soon...</p>
+    
+    <div class="roadmap-tree">
+      <div class="tree-node left">
+        <div class="node-box">
+          <div class="node-header">
+            <span class="node-phase">PHASE 01</span>
+          </div>
+          <div class="node-title">Underground Origins</div>
+          <div class="node-desc">Community building, Whitelist distribution, and Robinhood Chain integration.</div>
+        </div>
+      </div>
+
+      <div class="tree-node right">
+        <div class="node-box">
+          <div class="node-header">
+            <span class="node-phase">PHASE 02</span>
+            <span class="node-date">27.09.2026</span>
+          </div>
+          <div class="node-title">The Free Mint</div>
+          <div class="node-desc">3,333 unique Shinobi NFTs minted live on Robinhood Chain.</div>
+        </div>
+      </div>
+
+      <div class="tree-node left">
+        <div class="node-box">
+          <div class="node-header">
+            <span class="node-phase">PHASE 03</span>
+            <span class="node-date">27.09.2026</span>
+          </div>
+          <div class="node-title">Stake &amp; Rewards</div>
+          <div class="node-desc">Stake your Shinobi to earn ecosystem benefits and unlock exclusive tiers.</div>
+        </div>
+      </div>
+
+      <div class="tree-node right">
+        <div class="node-box">
+          <div class="node-header">
+            <span class="node-phase">PHASE 04</span>
+            <span class="node-date">28.09.2026</span>
+          </div>
+          <div class="node-title">Game Live</div>
+          <div class="node-desc">Launch of the Play-to-Earn gaming ecosystem for Shinobi holders.</div>
+        </div>
+      </div>
+
+      <div class="tree-node left">
+        <div class="node-box">
+          <div class="node-header">
+            <span class="node-phase">PHASE 05</span>
+            <span class="node-date">02.10.2026</span>
+          </div>
+          <div class="node-title">$SHINOBI Token Launch &amp; NFT Conversion Live</div>
+          <div class="node-desc">Official token launch with burn &amp; liquidity backing mechanism activated.</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="about-us" class="section-placeholder">
     <h2>ABOUT US</h2>
-    <p style="color: var(--text-dim); font-size: 13px;">Underground Shinobi NFT Project.</p>
+    <div class="about-text">
+      <p>Underground Shinobi is a collection of <span class="about-highlight">3,333 FREE NFTs</span> coming to Robinhood Chain.</p>
+      <p>Built around the spirit of the underground, Shinobi is more than just a collection — it’s a community-first project built with long-term vision, transparency, and trust at its core.</p>
+      <p>Every Shinobi will have its own rarity, and holders will have different ways to benefit from their NFT. You can stake your Shinobi and participate in the project's rewards, or choose to <span class="about-highlight">BURN</span> your NFT once the <span class="about-highlight">$SHINOBI</span> token launches and receive tokens based on your NFT's rarity.</p>
+      <p>We will provide the liquidity ourselves, with the goal of creating a system where even a Common Shinobi receives a minimum of $5 worth of tokens when burned, while higher-rarity Shinobi receive more according to their rarity.</p>
+      <p style="font-weight: 600; color: var(--ooze);">3333 Shinobi.<br>One community.<br>One underground.</p>
+      <p>We know that in Web3, trust is everything. Our biggest goal is to earn that trust and keep it. We will work to build Underground Shinobi with our community, not just for our community.</p>
+      <p style="font-weight: 600;">Welcome to the Underground. 🥷</p>
+    </div>
   </div>
 
 </div>
@@ -505,12 +741,9 @@
 <form id="gform" method="POST" target="hidden_iframe" style="display:none;"></form>
 
 <script>
-// ============================================================
-// YAPILANDIRMA BİLGİLERİ (HAZIRLANTI)
-// ============================================================
 const CONFIG = {
-  twitterProfileUrl: "https://twitter.com/YOUR_HANDLE", // Kendi X profil linkinizi yazın
-  tweetUrl: "https://twitter.com/YOUR_HANDLE/status/YOUR_TWEET_ID", // Kendi Tweet linkinizi yazın
+  twitterProfileUrl: "https://twitter.com/YOUR_HANDLE", 
+  tweetUrl: "https://twitter.com/YOUR_HANDLE/status/YOUR_TWEET_ID", 
   googleFormActionUrl: "https://docs.google.com/forms/d/e/1FAIpQLScxgv5i7RWly6_2JYjopL6UtkRR4kJ9togGbOa3yjPOnanCjw/formResponse",
   twitterEntryIdField: "entry.423406689",
   walletEntryIdField: "entry.216979400"
@@ -583,19 +816,16 @@ document.getElementById('submitBtn').addEventListener('click', function(){
     return;
   }
 
-  // Gizli Form Üzerinden Google Form'a Gönder
   const gform = document.getElementById('gform');
   gform.innerHTML = '';
   gform.action = CONFIG.googleFormActionUrl;
 
-  // Twitter Handle Alanı
   const inputTwitter = document.createElement('input');
   inputTwitter.type = 'hidden';
   inputTwitter.name = CONFIG.twitterEntryIdField;
   inputTwitter.value = handle;
   gform.appendChild(inputTwitter);
 
-  // Wallet Address Alanı
   const inputWallet = document.createElement('input');
   inputWallet.type = 'hidden';
   inputWallet.name = CONFIG.walletEntryIdField;
@@ -604,7 +834,6 @@ document.getElementById('submitBtn').addEventListener('click', function(){
 
   gform.submit();
 
-  // Başarı Görseli Ve Mesajı
   this.disabled = true;
   this.classList.remove('active');
   this.classList.add('submitted');
