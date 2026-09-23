@@ -63,7 +63,7 @@
 
   .wrap{max-width:620px; margin:0 auto; position: relative; z-index: 1;}
 
-  /* --- Top Navigation Boxes --- */
+  /* --- Top Navigation Grid Structure --- */
   .top-nav {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -90,11 +90,14 @@
     justify-content: center;
     min-height: 52px;
   }
-  .nav-box:hover {
+  .nav-box:not(.no-link):hover {
     border-color: var(--ooze);
     color: var(--ooze);
     background: rgba(124, 193, 66, 0.08);
     transform: translateY(-2px);
+  }
+  .nav-box.no-link {
+    cursor: default;
   }
   .nav-box .sub-label {
     font-size: 8.5px;
@@ -102,6 +105,27 @@
     text-transform: lowercase;
     margin-top: 3px;
     letter-spacing: 0px;
+  }
+
+  /* 2 Kat Büyüklüğündeki Büyük Oyun Kutucuğu */
+  .nav-box-large {
+    grid-row: span 2;
+    min-height: 114px;
+    border-color: var(--ooze-dim);
+    background: rgba(124, 193, 66, 0.05);
+  }
+  .nav-box-large .main-title {
+    font-size: 14px;
+    color: var(--ooze);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .nav-box-large .sub-title {
+    font-size: 11px;
+    color: var(--rust);
+    margin-top: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
   }
 
   /* --- Emblem / hero --- */
@@ -510,6 +534,10 @@
     .top-nav {
       grid-template-columns: repeat(2, 1fr);
     }
+    .nav-box-large {
+      grid-column: span 2;
+      min-height: 70px;
+    }
     .logo-showcase {
       width: 90vw;
     }
@@ -547,17 +575,21 @@
     <a href="#sneak-peek" class="nav-box">
       <span>Sneak Peek</span>
     </a>
+    <a href="javascript:void(0)" class="nav-box-large nav-box no-link">
+      <span class="main-title">PLAY &amp; EARN</span>
+      <span class="sub-title">Game Coming</span>
+    </a>
     <a href="#roadmap" class="nav-box">
       <span>Roadmap</span>
     </a>
     <a href="#about-us" class="nav-box">
       <span>About Us</span>
     </a>
-    <a href="#wl-section" class="nav-box">
+    <a href="javascript:void(0)" class="nav-box no-link">
       <span>NFT Stake &amp; Burn</span>
       <span class="sub-label">coming soon...</span>
     </a>
-    <a href="#wl-section" class="nav-box">
+    <a href="javascript:void(0)" class="nav-box no-link">
       <span>$SHINOBI</span>
       <span class="sub-label">coming soon...</span>
     </a>
